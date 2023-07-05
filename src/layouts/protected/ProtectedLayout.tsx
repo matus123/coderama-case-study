@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import AppNavBar from '../../containers/app-nav-bar/AppNavBar';
+import { Container } from '@mui/material';
 
 function HeaderLayout() {
   return (
@@ -13,7 +14,9 @@ export default function ProtectedLayout() {
   return (
     <>
       <HeaderLayout />
-      <Outlet />
+      <Container fixed>
+        <Outlet />
+      </Container>
     </>
   );
 }

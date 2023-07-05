@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../store/hooks';
-import { clearApiKey } from '../../store/apikey';
+import { clearApiKey } from '../../store/apiKey';
 import { NavLink } from 'react-router-dom';
 
 export default function AppNavBar() {
@@ -37,12 +37,7 @@ export default function AppNavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <NavLink
-            to="/"
-            className={({ isActive, isPending }) =>
-              isPending ? 'pending' : isActive ? 'active' : ''
-            }
-          >
+          <NavLink to="/">
             <Typography
               variant="h6"
               noWrap
@@ -52,7 +47,7 @@ export default function AppNavBar() {
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
-                color: 'inherit',
+                color: 'white',
                 textDecoration: 'none',
               }}
             >
@@ -61,21 +56,11 @@ export default function AppNavBar() {
           </NavLink>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <NavLink
-              to="/movie"
-              className={({ isActive, isPending }) =>
-                isPending ? 'pending' : isActive ? 'active' : ''
-              }
-            >
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>Home</Button>
+            <NavLink to="/movie">
+              <Button sx={{ my: 2, color: 'white' }}>Home</Button>
             </NavLink>
-            <NavLink
-              to="/favorites"
-              className={({ isActive, isPending }) =>
-                isPending ? 'pending' : isActive ? 'active' : ''
-              }
-            >
-              <Button sx={{ my: 2, color: 'white', display: 'block' }}>Favorites</Button>
+            <NavLink to="/favorites">
+              <Button sx={{ my: 2, color: 'white' }}>Favorites</Button>
             </NavLink>
           </Box>
 
