@@ -57,7 +57,7 @@ export default function AppNavBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <NavLink to="/movie">
-              <Button sx={{ my: 2, color: 'white' }}>Home</Button>
+              <Button sx={{ my: 2, color: 'white' }}>Movie Search</Button>
             </NavLink>
             <NavLink to="/favorites">
               <Button sx={{ my: 2, color: 'white' }}>Favorites</Button>

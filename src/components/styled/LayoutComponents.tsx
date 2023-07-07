@@ -7,3 +7,11 @@ export const FullCenteredContainer = styled(Container)`
   flex-direction: column;
   justify-content: center;
 `;
+
+export const PageContainer = styled(Container)`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+`;
