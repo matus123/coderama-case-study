@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import apikeyReducer from './apikey';
+import apikeyReducer from './apiKey';
+import favoriteMoviesReducer from './favoriteMovies';
 
 import {
   persistStore,
   persistReducer,
-  PersistConfig,
   FLUSH,
   PAUSE,
   PERSIST,
@@ -13,23 +13,26 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { movieApi } from '../services/rtk-api/omdb';
+import { movieApi } from '../services/rtk-api/omdb/omdb';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const persistConfig: PersistConfig<any> = {
-  key: 'root',
-  storage,
-  whitelist: ['apiKey'],
-};
 
 const rootReducer = combineReducers({
   apiKey: apikeyReducer,
+  favoriteMovies: favoriteMoviesReducer,
   [movieApi.reducerPath]: movieApi.reducer,
   // comments: commentsReducer,
   // users: usersReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+  {
+    key: 'root',
+    storage,
+    whitelist: ['apiKey', 'favoriteMovies'],
+  },
+  rootReducer,
+);
 
 export const store = configureStore({
   reducer: persistedReducer,
