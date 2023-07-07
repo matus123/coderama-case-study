@@ -15,8 +15,6 @@ import {
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { movieApi } from '../services/rtk-api/omdb/omdb';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-
 const rootReducer = combineReducers({
   apiKey: apikeyReducer,
   favoriteMovies: favoriteMoviesReducer,
