@@ -51,7 +51,7 @@ function App() {
             {
               path: 'favorites',
               lazy: async () => ({
-                Component: (await import('./pages/favorite-movies/FavouriteMoviesPage')).default,
+                Component: (await import('./pages/favorite-movies/FavoriteMoviesPage')).default,
               }),
             },
           ],
