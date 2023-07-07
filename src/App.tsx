@@ -1,12 +1,15 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useAppSelector } from './store/hooks';
+import LoginPage from './pages/LoginPage';
+import LoginLayout from './layouts/login/LoginLayout';
+import RootLayout from './layouts/root/RootLayout';
+import ProtectedLayout from './layouts/protected/ProtectedLayout';
+import { getProtectedLayoutLoader } from './layouts/protected/loader';
+import { getLoginLayoutLoader } from './layouts/login/loader';
 import LandingPage from './pages/LandingPage';
-import LandingLayout from './layouts/landingLayout/LandingLayout';
-import RootLayout from './layouts/rootLayout/RootLayout';
-import ProtectedLayout from './layouts/protectedLayout/ProtectedLayout';
-import { getProtectedLayoutLoader } from './layouts/protectedLayout/loader';
-import { getLandingLayoutLoader } from './layouts/landingLayout/loader';
-import LandingPage2 from './pages/LandingPage2';
+import MovieDetailPage from './pages/movie-detail/MovieDetailPage';
+import MovieSearchPage from './pages/movie-search/MovieSearchPage';
+import ErrorBoundaryCustom from './pages/ErrorBoundaryPage';
 
 function App() {
   const { apiKey } = useAppSelector(({ apiKey }) => apiKey);
@@ -14,7 +17,7 @@ function App() {
   const router = createBrowserRouter([
     {
       element: <RootLayout />,
-      // errorElement: TODO:
+      errorElement: <ErrorBoundaryCustom />,
       children: [
         {
           path: '/',
@@ -23,41 +26,47 @@ function App() {
           children: [
             {
               path: '',
-              element: <LandingPage2 />,
+              element: <LandingPage />,
+              lazy: async () => ({ Component: (await import('./pages/LandingPage')).default }),
             },
             {
               path: 'movie',
               children: [
                 {
                   path: '',
-                  element: <div>Movies search/list</div>,
-                  // element: <Team />,
-                  // loader: teamLoader,
+                  element: <MovieSearchPage />,
+                  lazy: async () => ({
+                    Component: (await import('./pages/movie-search/MovieSearchPage')).default,
+                  }),
                 },
                 {
                   path: ':movieId',
-                  element: <div>Movie detail/list</div>,
-                  // element: <Team />,
-                  // loader: teamLoader,
+                  element: <MovieDetailPage />,
+                  lazy: async () => ({
+                    Component: (await import('./pages/movie-detail/MovieDetailPage')).default,
+                  }),
                 },
               ],
             },
             {
               path: 'favorites',
-              element: <div>favorites</div>,
+              lazy: async () => ({
+                Component: (await import('./pages/favorite-movies/FavouriteMoviesPage')).default,
+              }),
             },
           ],
         },
         {
-          path: '/landing',
-          element: <LandingLayout />,
-          loader: getLandingLayoutLoader(apiKey),
+          path: 'login',
+          element: <LoginLayout />,
+          loader: getLoginLayoutLoader(apiKey),
           children: [
             {
               path: '',
-              element: <LandingPage />,
+              element: <LoginPage />,
             },
           ],
+          lazy: async () => ({ Component: (await import('./layouts/login/LoginLayout')).default }),
         },
       ],
     },
