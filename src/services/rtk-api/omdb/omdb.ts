@@ -25,6 +25,7 @@ export const movieApi = createApi({
       ) => {
         // FIXME: there is circular dependency between omdb.ts and store.ts
         // there is bug opened in github, there is not solution for it yet
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const apiKey: string | undefined = (queryApi.getState() as any).apiKey.apiKey;
 
         return baseQuery(`?apikey=${apiKey}&i=${id}`);
@@ -43,6 +44,7 @@ export const movieApi = createApi({
       ) => {
         // FIXME: there is circular dependency between omdb.ts and store.ts
         // there is bug opened in github, there is not solution for it yet
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const apiKey: string | undefined = (queryApi.getState() as any).apiKey.apiKey;
 
         return baseQuery(`?apikey=${apiKey}&s=${args.search}&type=movie&page=${args.page}`);
