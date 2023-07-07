@@ -1,16 +1,4 @@
-export type ErrorResponse = {
-  Error: string;
-  Response: 'False';
-};
-
-export type MaybeErrorResponse<T extends { Response: 'True' }> = T | ErrorResponse;
-
-export type Rating = {
-  Source: string;
-  Value: string;
-};
-
-export type MovieDetail = {
+export type Movie = {
   Title: string;
   Year: string;
   Rated: string;
@@ -25,7 +13,10 @@ export type MovieDetail = {
   Country: string;
   Awards: string;
   Poster: string;
-  Ratings: Array<Rating>;
+  Ratings: Array<{
+    Source: string;
+    Value: string;
+  }>;
   Metascore: string;
   imdbRating: string;
   imdbVotes: string;
@@ -38,7 +29,7 @@ export type MovieDetail = {
   Response: 'True';
 };
 
-export type MovieSummary = {
+export type MovieSearchInfo = {
   Title: string;
   Year: string;
   imdbID: string;
@@ -46,8 +37,8 @@ export type MovieSummary = {
   Poster: string;
 };
 
-export type SearchResponse = {
-  Search: Array<MovieSummary>;
+export type MovieSearchResponse = {
+  Search: Array<MovieSearchInfo>;
   totalResults: string;
   Response: 'True';
 };
