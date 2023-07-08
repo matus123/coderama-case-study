@@ -14,63 +14,68 @@ import ErrorBoundaryCustom from './pages/ErrorBoundaryPage';
 function App() {
   const { apiKey } = useAppSelector(({ apiKey }) => apiKey);
 
-  const router = createBrowserRouter([
-    {
-      element: <RootLayout />,
-      errorElement: <ErrorBoundaryCustom />,
-      children: [
-        {
-          path: '/',
-          element: <ProtectedLayout />,
-          loader: getProtectedLayoutLoader(apiKey),
-          children: [
-            {
-              path: '',
-              element: <LandingPage />,
-              lazy: async () => ({ Component: (await import('./pages/LandingPage')).default }),
-            },
-            {
-              path: 'movie',
-              children: [
-                {
-                  path: '',
-                  element: <MovieSearchPage />,
-                  lazy: async () => ({
-                    Component: (await import('./pages/movie-search/MovieSearchPage')).default,
-                  }),
-                },
-                {
-                  path: ':movieId',
-                  element: <MovieDetailPage />,
-                  lazy: async () => ({
-                    Component: (await import('./pages/movie-detail/MovieDetailPage')).default,
-                  }),
-                },
-              ],
-            },
-            {
-              path: 'favorites',
-              lazy: async () => ({
-                Component: (await import('./pages/favorite-movies/FavoriteMoviesPage')).default,
-              }),
-            },
-          ],
-        },
-        {
-          path: 'login',
-          element: <LoginLayout />,
-          loader: getLoginLayoutLoader(apiKey),
-          children: [
-            {
-              path: '',
-              element: <LoginPage />,
-            },
-          ],
-          lazy: async () => ({ Component: (await import('./layouts/login/LoginLayout')).default }),
-        },
-      ],
-    },
-  ]);
+  const router = createBrowserRouter(
+    [
+      {
+        element: <RootLayout />,
+        errorElement: <ErrorBoundaryCustom />,
+        children: [
+          {
+            path: '/',
+            element: <ProtectedLayout />,
+            loader: getProtectedLayoutLoader(apiKey),
+            children: [
+              {
+                path: '',
+                element: <LandingPage />,
+                lazy: async () => ({ Component: (await import('./pages/LandingPage')).default }),
+              },
+              {
+                path: 'movie',
+                children: [
+                  {
+                    path: '',
+                    element: <MovieSearchPage />,
+                    lazy: async () => ({
+                      Component: (await import('./pages/movie-search/MovieSearchPage')).default,
+                    }),
+                  },
+                  {
+                    path: ':movieId',
+                    element: <MovieDetailPage />,
+                    lazy: async () => ({
+                      Component: (await import('./pages/movie-detail/MovieDetailPage')).default,
+                    }),
+                  },
+                ],
+              },
+              {
+                path: 'favorites',
+                lazy: async () => ({
+                  Component: (await import('./pages/favorite-movies/FavoriteMoviesPage')).default,
+                }),
+              },
+            ],
+          },
+          {
+            path: 'login',
+            element: <LoginLayout />,
+            loader: getLoginLayoutLoader(apiKey),
+            children: [
+              {
+                path: '',
+                element: <LoginPage />,
+              },
+            ],
+            lazy: async () => ({
+              Component: (await import('./layouts/login/LoginLayout')).default,
+            }),
+          },
+        ],
+      },
+    ],
+    { basename: import.meta.env.DEV ? '/' : '/coderama-case-study/' },
+  );
 
   return <RouterProvider router={router} />;
 }
