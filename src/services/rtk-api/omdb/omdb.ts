@@ -5,7 +5,7 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { Movie, MovieSearchResponse } from './interfaces';
+import { MovieResponse, MovieSearchResponse } from './interfaces';
 import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers';
 
@@ -14,14 +14,14 @@ export const movieApi = createApi({
   reducerPath: 'movieApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com' }),
   endpoints: (builder) => ({
-    getMovieTitle: builder.query<Movie, string>({
+    getMovieTitle: builder.query<MovieResponse, string>({
       queryFn: (
         id,
         queryApi,
         _extraOptions,
         baseQuery: (
           arg: string | FetchArgs,
-        ) => MaybePromise<QueryReturnValue<Movie, FetchBaseQueryError, FetchBaseQueryMeta>>,
+        ) => MaybePromise<QueryReturnValue<MovieResponse, FetchBaseQueryError, FetchBaseQueryMeta>>,
       ) => {
         // FIXME: there is circular dependency between omdb.ts and store.ts
         // there is bug opened in github, there is not solution for it yet

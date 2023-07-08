@@ -1,3 +1,7 @@
+export type MovieError = { Response: 'False'; Error: string };
+
+export type MovieResponse = Movie | MovieError;
+
 export type Movie = {
   Title: string;
   Year: string;
