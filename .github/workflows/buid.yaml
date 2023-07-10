@@ -49,6 +49,10 @@ jobs:
       - name: Build
         run: yarn run gh-pages:build
 
+      - name: React router hack
+        run: |
+          cp dist/index.html dist/404.html"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
